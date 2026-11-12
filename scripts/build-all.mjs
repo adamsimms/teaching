@@ -287,14 +287,16 @@ function writeRedirects() {
   ]);
 
   // Readings live on the schedule; keep old /readings/ URLs working.
-  rules.push("/phot331/readings /phot331/course/schedule/ 301");
-  rules.push("/phot331/readings/ /phot331/course/schedule/ 301");
-  rules.push("/phot332/readings /phot332/course/schedule/ 301");
-  rules.push("/phot332/readings/ /phot332/course/schedule/ 301");
-  rules.push("/phot398/readings /phot398/course/schedule/ 301");
-  rules.push("/phot398/readings/ /phot398/course/schedule/ 301");
-  rules.push("/phot400/readings /phot400/course/schedule/ 301");
-  rules.push("/phot400/readings/ /phot400/course/schedule/ 301");
+  for (const course of courses) {
+    rules.push(`/${course.slug}/readings /${course.slug}/course/schedule/ 301`);
+    rules.push(`/${course.slug}/readings/ /${course.slug}/course/schedule/ 301`);
+  }
+
+  // Print syllabus moved under Course.
+  for (const course of courses) {
+    rules.push(`/${course.slug}/print /${course.slug}/course/print/ 301`);
+    rules.push(`/${course.slug}/print/ /${course.slug}/course/print/ 301`);
+  }
 
   // phot400 Class Participation page removed.
   rules.push("/phot400/assignments/class-participation /phot400/assignments/ 301");
