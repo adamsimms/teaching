@@ -480,6 +480,19 @@ main.container.flex {
   border-radius: 0;
 }
 
+.book-kind-home .markdown.book-article > p {
+  max-width: 42rem;
+  margin: 1.5rem auto 0;
+  padding: 0 1.25rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--course-text);
+}
+
+.book-kind-home .markdown.book-article > p:last-child {
+  margin-bottom: 2.5rem;
+}
+
 .course-hero {
   position: relative;
   margin: 0 0 2.5rem;

@@ -6,6 +6,14 @@ import { SITE_ORIGIN } from "./course-seo.mjs";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const courses = JSON.parse(fs.readFileSync(path.join(rootDir, "courses.json"), "utf8"));
 
+export function courseBySlug(slug) {
+  const course = courses.find((entry) => entry.slug === slug);
+  if (!course) {
+    throw new Error(`Unknown course slug: ${slug}`);
+  }
+  return course;
+}
+
 export function relatedCoursesFor(slug) {
   return courses
     .filter((course) => course.slug !== slug)
