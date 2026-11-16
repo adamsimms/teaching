@@ -10,7 +10,7 @@ import {
   sourceMeta,
 } from "./generate-content-helpers.mjs";
 import { buildReadingsMarkdown } from "./readings-page.mjs";
-import { writeRelatedCoursesData } from "./course-catalog.mjs";
+import { courseBySlug, writeRelatedCoursesData } from "./course-catalog.mjs";
 import { siteUrl } from "./site-path.mjs";
 
 const PAGES_MAX_ASSET_BYTES = 24 * 1024 * 1024;
@@ -129,7 +129,14 @@ export function runCourseGenerator({
   syncAssets(path.join(courseDir, "assets"), staticAssetsDir, assetSync);
   writeRelatedCoursesData(sitePath, courseSlug);
 
-  writePage(contentDir, "_index.md", { title: "Home", ...homeMeta, ...seoMeta(courseSlug, "home") }, "{{< course-hero >}}");
+  const course = courseBySlug(courseSlug);
+  const homeBody = `{{< course-hero >}}
+
+${course.description}
+
+[Syllabus overview](course/overview/)`;
+
+  writePage(contentDir, "_index.md", { title: "Home", ...homeMeta, ...seoMeta(courseSlug, "home") }, homeBody);
 
   writeSectionIndex(contentDir, "course/_index.md", "Course", 10);
 
