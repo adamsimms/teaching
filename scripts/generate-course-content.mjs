@@ -5,10 +5,12 @@ import {
   contentSitemap,
   homeMeta,
   longPageMeta,
+  rulesMeta,
   sectionIndexMeta,
   seoMeta,
   sourceMeta,
 } from "./generate-content-helpers.mjs";
+import { SITE_ORIGIN } from "./course-seo.mjs";
 import { buildReadingsMarkdown } from "./readings-page.mjs";
 import { courseBySlug, writeRelatedCoursesData } from "./course-catalog.mjs";
 import { siteUrl } from "./site-path.mjs";
@@ -162,6 +164,8 @@ ${course.description}
       layout: "print-syllabus",
       noindex: true,
       sitemap: { disable: true },
+      // Print embeds overview + schedule; point Google at the indexable overview.
+      canonical: `${SITE_ORIGIN}/${courseSlug}/course/overview/`,
       bookHidden: true,
       bookToC: false,
     },
@@ -208,8 +212,8 @@ ${course.description}
       title: "Rules",
       weight: 40,
       ...longPageMeta,
+      ...rulesMeta,
       ...seoMeta(courseSlug, "rules"),
-      ...contentSitemap(0.6),
       ...sourceMeta(courseFolderName, "README.md", "rules"),
     },
     extractPageMarkdown("README.md", "Rules", "Rules")

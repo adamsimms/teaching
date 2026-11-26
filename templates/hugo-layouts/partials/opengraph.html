@@ -5,10 +5,14 @@
 {{- $image := absURL (.Site.Params.socialImageOg | default .Site.Params.socialImage | default "images/og-square.jpg") -}}
 {{- $imageWidth := .Site.Params.socialImageWidth | default 1200 -}}
 {{- $imageHeight := .Site.Params.socialImageHeight | default 1200 -}}
+{{- $ogUrl := .Permalink -}}
+{{- with .Params.canonical -}}
+  {{- $ogUrl = . -}}
+{{- end -}}
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ $ogUrl }}">
 <meta property="og:site_name" content="{{ .Site.Params.courseCode }} {{ .Site.Title }}">
 <meta property="og:locale" content="{{ .Site.Language.Lang }}">
 <meta property="og:image" content="{{ $image }}">

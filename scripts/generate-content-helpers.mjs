@@ -38,6 +38,12 @@ export const appointmentsMeta = {
   bookSearchExclude: true,
 };
 
+// Shared Concordia policy boilerplate across courses; keep browsable, keep out of the index.
+export const rulesMeta = {
+  noindex: true,
+  sitemap: { disable: true },
+};
+
 export function contentSitemap(priority) {
   return {
     sitemap: {
